@@ -15,7 +15,7 @@ function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#070A0F] flex items-center justify-center text-slate-400 text-xs">
+      <div className="min-h-screen bg-[#FAFAFC] flex items-center justify-center text-slate-600 text-xs font-bold font-sans">
         Loading EcoLedger Workspace...
       </div>
     );
@@ -31,6 +31,7 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

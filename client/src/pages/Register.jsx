@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { Leaf, Building2, User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import TiltCard from '../components/TiltCard';
@@ -13,8 +13,12 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { register } = useAuth();
+  const { user, register } = useAuth();
   const navigate = useNavigate();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +39,7 @@ export default function Register() {
       <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-emerald-300/20 rounded-full blur-[140px] pointer-events-none"></div>
 
       <TiltCard className="max-w-md w-full relative z-10" maxTilt={8}>
-        <div className="card-3d rounded-3xl p-8 space-y-5">
+        <div className="p-8 space-y-5">
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white mx-auto shadow-md shadow-emerald-500/20">
               <Leaf className="w-6 h-6 fill-white/20 text-white" />

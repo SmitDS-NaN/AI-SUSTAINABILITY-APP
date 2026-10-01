@@ -11,31 +11,29 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     async function loadUser() {
-      if (token) {
+      const storedToken = localStorage.getItem('ecoledger_token');
+      if (storedToken) {
         try {
           const res = await authAPI.getMe();
           setUser(res.data.user);
           setOrganization(res.data.organization);
+          setToken(storedToken);
         } catch (err) {
           console.warn('Failed to load user token:', err);
-          logout();
+          setUser(null);
+          setOrganization(null);
+          setToken(null);
+          localStorage.removeItem('ecoledger_token');
         }
       } else {
-        // Auto demo login if no token present
-        try {
-          const res = await authAPI.login({ email: 'demo@ecoledger.com', password: 'password123' });
-          setToken(res.data.token);
-          localStorage.setItem('ecoledger_token', res.data.token);
-          setUser(res.data.user);
-          setOrganization(res.data.organization);
-        } catch (err) {
-          console.error('Demo auto-login error:', err);
-        }
+        setUser(null);
+        setOrganization(null);
+        setToken(null);
       }
       setLoading(false);
     }
     loadUser();
-  }, [token]);
+  }, []);
 
   const login = async (email, password) => {
     setLoading(true);
