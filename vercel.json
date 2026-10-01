@@ -4,6 +4,7 @@
     "client": {
       "root": "client",
       "framework": "vite",
+      "buildCommand": "npm run build",
       "bindings": [
         {
           "type": "service",
@@ -15,7 +16,7 @@
     },
     "server": {
       "root": "server",
-      "framework": "express"
+      "buildCommand": "npm run build"
     }
   },
   "rewrites": [
