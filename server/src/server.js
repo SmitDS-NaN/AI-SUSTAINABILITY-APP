@@ -14,15 +14,23 @@ const app = express();
 // Security Middlewares
 app.use(helmet());
 app.use(cors({
-  origin: [env.CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  origin: true,
   credentials: true
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Vercel Serverless Path Normalizer (handles both /api/* and /* routes)
+app.use((req, res, next) => {
+  if (!req.url.startsWith('/api') && req.url !== '/' && req.url !== '/health') {
+    req.url = '/api' + req.url;
+  }
+  next();
+});
+
 // Health Check
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'online',
     service: 'EcoLedger API Engine',
