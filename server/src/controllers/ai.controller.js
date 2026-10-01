@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { db } from '../config/db.js';
 import {
   explainAnomaly,
@@ -61,7 +61,7 @@ export async function handleGenerateRecommendations(req, res, next) {
         );
         if (!existing) {
           db.memoryDb.recommendations.push({
-            id: uuidv4(),
+            id: crypto.randomUUID(),
             org_id: orgId,
             title: rec.title,
             description: rec.description,
@@ -99,7 +99,7 @@ export async function getRecommendationsList(req, res, next) {
       if (aiOutput && aiOutput.recommendations) {
         aiOutput.recommendations.forEach(rec => {
           db.memoryDb.recommendations.push({
-            id: uuidv4(),
+            id: crypto.randomUUID(),
             org_id: orgId,
             title: rec.title,
             description: rec.description,

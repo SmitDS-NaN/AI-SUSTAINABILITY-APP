@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { db } from '../config/db.js';
 import { UsageLogSchema } from '../schemas/zod.schemas.js';
 import { calculateCO2e, EMISSION_FACTORS } from '../services/emission.service.js';
@@ -45,7 +45,7 @@ export async function createUsageLog(req, res, next) {
     const calculated_co2e = calculateCO2e(catKey, quantity);
 
     const newLog = {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       org_id: orgId,
       category: catKey,
       quantity,
@@ -118,7 +118,7 @@ export async function bulkUploadCSV(req, res, next) {
         const co2e = calculateCO2e(cat, qty);
 
         const log = {
-          id: uuidv4(),
+          id: crypto.randomUUID(),
           org_id: orgId,
           category: cat,
           quantity: qty,

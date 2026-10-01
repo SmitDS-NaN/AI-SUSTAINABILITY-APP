@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { db } from '../config/db.js';
 import { GoalSchema } from '../schemas/zod.schemas.js';
 
@@ -19,7 +19,7 @@ export async function createGoal(req, res, next) {
     const { target_category, reduction_percentage, target_date } = validated;
 
     const newGoal = {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       org_id: orgId,
       target_category,
       reduction_percentage,

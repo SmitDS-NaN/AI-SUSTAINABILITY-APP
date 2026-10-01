@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { db } from '../config/db.js';
 import { env } from '../config/env.js';
 import { RegisterSchema, LoginSchema } from '../schemas/zod.schemas.js';
@@ -17,8 +17,8 @@ export async function register(req, res, next) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const orgId = uuidv4();
-    const userId = uuidv4();
+    const orgId = crypto.randomUUID();
+    const userId = crypto.randomUUID();
 
     const newOrg = {
       id: orgId,
