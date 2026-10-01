@@ -33,7 +33,7 @@ export default function CSVUploadModal({ isOpen, onClose, onSuccess }) {
       }
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
       const rows = [];
-      for (let i = 1; i < lines.length && i <= 10; i++) { // preview up to 10 rows
+      for (let i = 1; i < lines.length && i <= 10; i++) {
         if (!lines[i].trim()) continue;
         const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
         const obj = {};
@@ -75,63 +75,63 @@ export default function CSVUploadModal({ isOpen, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
+        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100">
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center space-x-3 border-b border-slate-800 pb-4">
-          <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/30">
+        <div className="flex items-center space-x-3 border-b border-slate-100 pb-4">
+          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-200 shadow-sm">
             <UploadCloud className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Bulk Utility CSV Data Ingestion</h3>
-            <p className="text-xs text-slate-400">Upload 12 months of utility logs for automated deterministic carbon calculation</p>
+            <h3 className="text-lg font-black text-slate-900">Bulk Utility CSV Data Ingestion</h3>
+            <p className="text-xs font-semibold text-slate-500">Upload 12 months of utility logs for automated deterministic carbon calculation</p>
           </div>
         </div>
 
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/30 p-3 rounded-xl flex items-center space-x-2 text-rose-400 text-xs">
+          <div className="bg-rose-50 border border-rose-200 p-3 rounded-xl flex items-center space-x-2 text-rose-700 text-xs font-semibold">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {/* Drag & Drop Box */}
-        <div className="border-2 border-dashed border-slate-700 hover:border-emerald-500/60 rounded-2xl p-8 text-center bg-slate-950/50 transition-all cursor-pointer relative group">
+        <div className="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-2xl p-8 text-center bg-slate-50/70 transition-all cursor-pointer relative group">
           <input
             type="file"
             accept=".csv"
             onChange={handleFileUpload}
             className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
           />
-          <FileText className="w-12 h-12 text-slate-500 group-hover:text-emerald-400 mx-auto transition-colors" />
-          <p className="text-sm font-semibold text-slate-200 mt-2">
+          <FileText className="w-12 h-12 text-slate-400 group-hover:text-emerald-600 mx-auto transition-colors" />
+          <p className="text-sm font-bold text-slate-800 mt-2">
             Click or Drag & Drop your CSV file here
           </p>
-          <p className="text-xs text-slate-400 mt-1">Supports columns: category, quantity, unit, usage_date, cost_inr, notes</p>
+          <p className="text-xs font-medium text-slate-500 mt-1">Supports columns: category, quantity, unit, usage_date, cost_inr, notes</p>
         </div>
 
         {/* Download Sample Button */}
-        <div className="flex items-center justify-between bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 text-xs">
-          <span className="text-slate-300">Need a sample template structure?</span>
+        <div className="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+          <span className="text-slate-600 font-semibold">Need a sample template structure?</span>
           <button
             onClick={handleDownloadSample}
-            className="flex items-center space-x-1.5 text-emerald-400 hover:text-emerald-300 font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-lg"
+            className="flex items-center space-x-1.5 text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg hover:bg-emerald-100"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Download Sample CSV</span>
           </button>
         </div>
 
-        {/* Preview Table if rows loaded */}
+        {/* Preview Table */}
         {parsedRows.length > 0 && (
           <div>
-            <h5 className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Data Preview ({parsedRows.length} sample rows)</h5>
-            <div className="overflow-x-auto max-h-40 border border-slate-800 rounded-xl bg-slate-950">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-800/80 text-slate-400 font-mono">
+            <h5 className="text-xs font-extrabold text-slate-500 mb-2 uppercase tracking-wider">Data Preview ({parsedRows.length} sample rows)</h5>
+            <div className="overflow-x-auto max-h-40 border border-slate-200 rounded-xl bg-white">
+              <table className="w-full text-left text-xs text-slate-700">
+                <thead className="bg-slate-100 text-slate-700 font-mono font-bold">
                   <tr>
                     <th className="p-2">Category</th>
                     <th className="p-2">Quantity</th>
@@ -141,8 +141,8 @@ export default function CSVUploadModal({ isOpen, onClose, onSuccess }) {
                 </thead>
                 <tbody>
                   {parsedRows.map((r, idx) => (
-                    <tr key={idx} className="border-t border-slate-800/60">
-                      <td className="p-2 capitalize font-semibold">{r.category || 'electricity'}</td>
+                    <tr key={idx} className="border-t border-slate-100">
+                      <td className="p-2 capitalize font-bold text-slate-900">{r.category || 'electricity'}</td>
                       <td className="p-2">{r.quantity} {r.unit}</td>
                       <td className="p-2 font-mono">{r.usage_date || r.date}</td>
                       <td className="p-2">₹{r.cost_inr || r.cost || 0}</td>
@@ -154,14 +154,14 @@ export default function CSVUploadModal({ isOpen, onClose, onSuccess }) {
           </div>
         )}
 
-        <div className="flex justify-end space-x-3 pt-3 border-t border-slate-800">
-          <button onClick={onClose} className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">
+        <div className="flex justify-end space-x-3 pt-3 border-t border-slate-100">
+          <button onClick={onClose} className="px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-800">
             Cancel
           </button>
           <button
             disabled={!csvRawText || loading}
             onClick={handleSubmit}
-            className="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg transition-all"
+            className="btn-3d-primary font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg flex items-center space-x-2"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
             <span>Process & Calculate Footprint</span>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Leaf, Building2, User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import TiltCard from '../components/TiltCard';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -30,116 +31,118 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070A0F] text-slate-100 flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="min-h-screen bg-light-mesh text-slate-900 flex items-center justify-center p-4 relative overflow-hidden font-sans">
+      <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-emerald-300/20 rounded-full blur-[140px] pointer-events-none"></div>
 
-      <div className="max-w-md w-full glass-panel rounded-3xl p-8 relative shadow-2xl space-y-5 border border-slate-800">
-        <div className="text-center space-y-1">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 mx-auto shadow-glow-emerald">
-            <Leaf className="w-6 h-6 fill-slate-950" />
-          </div>
-          <h2 className="text-2xl font-black text-white tracking-tight">Create Organization Workspace</h2>
-          <p className="text-xs text-slate-400">Set up multi-org isolated sustainability ledger</p>
-        </div>
-
-        {error && (
-          <div className="bg-rose-500/10 border border-rose-500/30 p-3 rounded-xl text-rose-400 text-xs text-center font-medium">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-3 text-xs">
-          <div>
-            <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">Organization Name</label>
-            <div className="relative">
-              <Building2 className="w-4 h-4 text-slate-500 absolute left-3.5 top-2.5" />
-              <input
-                type="text"
-                required
-                value={orgName}
-                onChange={(e) => setOrgName(e.target.value)}
-                placeholder="Apex Green Manufacturing"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-              />
+      <TiltCard className="max-w-md w-full relative z-10" maxTilt={8}>
+        <div className="card-3d rounded-3xl p-8 space-y-5">
+          <div className="text-center space-y-2">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white mx-auto shadow-md shadow-emerald-500/20">
+              <Leaf className="w-6 h-6 fill-white/20 text-white" />
             </div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Create Organization Workspace</h2>
+            <p className="text-xs font-medium text-slate-500">Set up multi-org isolated sustainability ledger</p>
           </div>
 
-          <div>
-            <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">Industry Sector</label>
-            <select
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500"
+          {error && (
+            <div className="bg-rose-50 border border-rose-200 p-3 rounded-2xl text-rose-600 text-xs text-center font-semibold">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Organization Name</label>
+              <div className="relative">
+                <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="text"
+                  required
+                  value={orgName}
+                  onChange={(e) => setOrgName(e.target.value)}
+                  placeholder="Apex Green Manufacturing"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Industry Sector</label>
+              <select
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-inner font-medium"
+              >
+                <option value="Industrial & Electronics Manufacturing">Industrial & Electronics Manufacturing</option>
+                <option value="Hospitality & Restaurants">Hospitality & Restaurants</option>
+                <option value="Educational Institutions & Campus">Educational Institutions & Campus</option>
+                <option value="Commercial Real Estate">Commercial Real Estate</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Full Name</label>
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Alex Rivera"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Work Email</label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="alex@organization.com"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Password</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-3d-primary w-full py-3.5 text-xs font-bold flex items-center justify-center space-x-2 rounded-xl mt-3"
             >
-              <option value="Industrial & Electronics Manufacturing">Industrial & Electronics Manufacturing</option>
-              <option value="Hospitality & Restaurants">Hospitality & Restaurants</option>
-              <option value="Educational Institutions & Campus">Educational Institutions & Campus</option>
-              <option value="Commercial Real Estate">Commercial Real Estate</option>
-            </select>
-          </div>
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
+              <span>Initialize Workspace</span>
+            </button>
+          </form>
 
-          <div>
-            <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">Full Name</label>
-            <div className="relative">
-              <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-2.5" />
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Alex Rivera"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">Work Email</label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-2.5" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="alex@organization.com"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-300 uppercase tracking-wider mb-1">Password</label>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-2.5" />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold py-2.5 rounded-xl shadow-glow-emerald transition-all flex items-center justify-center space-x-2 mt-2"
-          >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
-            <span>Initialize Workspace</span>
-          </button>
-        </form>
-
-        <p className="text-center text-xs text-slate-400">
-          Already registered?{' '}
-          <Link to="/login" className="text-emerald-400 hover:underline font-bold">
-            Sign In
-          </Link>
-        </p>
-      </div>
+          <p className="text-center text-xs text-slate-500 font-medium pt-2">
+            Already registered?{' '}
+            <Link to="/login" className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline">
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </TiltCard>
     </div>
   );
 }

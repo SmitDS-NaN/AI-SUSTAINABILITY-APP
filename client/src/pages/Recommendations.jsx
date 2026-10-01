@@ -58,23 +58,23 @@ export default function Recommendations() {
   const completedCount = recommendations.filter(r => r.status === 'completed').length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
             <span>AI Sustainability Action Plan</span>
-            <span className="text-xs bg-violet-500/20 text-violet-300 font-bold px-2.5 py-1 rounded-full border border-violet-500/30 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> Gemini 2.5 Engine
+            <span className="text-xs bg-violet-100 text-violet-800 font-extrabold px-3 py-1 rounded-full border border-violet-200 flex items-center gap-1.5 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-violet-600" /> Gemini 2.5 Engine
             </span>
           </h2>
-          <p className="text-xs text-slate-400">Prioritized initiatives with realistic financial ROI and carbon impact metrics</p>
+          <p className="text-xs font-medium text-slate-500 mt-1">Prioritized initiatives with realistic financial ROI and carbon impact metrics</p>
         </div>
 
         <button
           onClick={handleGenerateNew}
           disabled={generating}
-          className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-glow-violet flex items-center space-x-2 transition-all transform hover:scale-105 shrink-0"
+          className="btn-3d-violet font-bold text-xs px-5 py-2.5 rounded-xl flex items-center space-x-2 shrink-0"
         >
           {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
           <span>Re-Generate AI Initiatives</span>
@@ -82,35 +82,35 @@ export default function Recommendations() {
       </div>
 
       {/* Filter Tabs & Counts */}
-      <div className="flex items-center space-x-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 max-w-lg">
+      <div className="flex items-center space-x-2 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200 max-w-lg shadow-inner">
         <button
           onClick={() => setActiveTab('all')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-            activeTab === 'all' ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+          className={`px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+            activeTab === 'all' ? 'bg-violet-600 text-white shadow-md shadow-violet-600/20' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           All ({recommendations.length})
         </button>
         <button
           onClick={() => setActiveTab('pending')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-            activeTab === 'pending' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-400 hover:text-slate-200'
+          className={`px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+            activeTab === 'pending' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           To Do ({pendingCount})
         </button>
         <button
           onClick={() => setActiveTab('in_progress')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-            activeTab === 'in_progress' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-slate-400 hover:text-slate-200'
+          className={`px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+            activeTab === 'in_progress' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           In Progress ({inProgressCount})
         </button>
         <button
           onClick={() => setActiveTab('completed')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-            activeTab === 'completed' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'text-slate-400 hover:text-slate-200'
+          className={`px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+            activeTab === 'completed' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           Done ({completedCount})
@@ -119,15 +119,15 @@ export default function Recommendations() {
 
       {/* Initiatives Grid */}
       {loading ? (
-        <div className="py-20 text-center space-y-2">
-          <Loader2 className="w-8 h-8 text-violet-400 animate-spin mx-auto" />
-          <p className="text-xs text-slate-400">Loading AI action plans...</p>
+        <div className="py-20 text-center space-y-3">
+          <Loader2 className="w-8 h-8 text-violet-600 animate-spin mx-auto" />
+          <p className="text-xs font-bold text-slate-600">Loading AI action plans...</p>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="glass-panel p-12 text-center rounded-2xl space-y-3">
-          <Sparkles className="w-10 h-10 text-violet-400 mx-auto" />
-          <p className="text-sm font-bold text-white">No initiatives in this state</p>
-          <p className="text-xs text-slate-400">Click "Re-Generate AI Initiatives" to analyze your latest data.</p>
+        <div className="card-3d p-12 text-center rounded-3xl space-y-3">
+          <Sparkles className="w-10 h-10 text-violet-600 mx-auto" />
+          <p className="text-sm font-bold text-slate-900">No initiatives in this state</p>
+          <p className="text-xs text-slate-500 font-medium">Click "Re-Generate AI Initiatives" to analyze your latest data.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
