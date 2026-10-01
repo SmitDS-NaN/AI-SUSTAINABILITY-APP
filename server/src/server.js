@@ -59,6 +59,16 @@ if (!process.env.VERCEL) {
       console.error('❌ Server startup error:', err);
     }
   });
+
+  const gracefulShutdown = () => {
+    server.close(() => {
+      process.exit(0);
+    });
+  };
+
+  process.once('SIGUSR2', gracefulShutdown);
+  process.on('SIGINT', gracefulShutdown);
+  process.on('SIGTERM', gracefulShutdown);
 }
 
 export default app;
