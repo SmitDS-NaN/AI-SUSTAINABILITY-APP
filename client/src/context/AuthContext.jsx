@@ -36,33 +36,23 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    setLoading(true);
-    try {
-      const res = await authAPI.login({ email, password });
-      const { token: newToken, user: userData, organization: orgData } = res.data;
-      setToken(newToken);
-      localStorage.setItem('ecoledger_token', newToken);
-      setUser(userData);
-      setOrganization(orgData);
-      return res.data;
-    } finally {
-      setLoading(false);
-    }
+    const res = await authAPI.login({ email, password });
+    const { token: newToken, user: userData, organization: orgData } = res.data;
+    setToken(newToken);
+    localStorage.setItem('ecoledger_token', newToken);
+    setUser(userData);
+    setOrganization(orgData);
+    return res.data;
   };
 
   const register = async (email, password, full_name, org_name, industry) => {
-    setLoading(true);
-    try {
-      const res = await authAPI.register({ email, password, full_name, org_name, industry });
-      const { token: newToken, user: userData, organization: orgData } = res.data;
-      setToken(newToken);
-      localStorage.setItem('ecoledger_token', newToken);
-      setUser(userData);
-      setOrganization(orgData);
-      return res.data;
-    } finally {
-      setLoading(false);
-    }
+    const res = await authAPI.register({ email, password, full_name, org_name, industry });
+    const { token: newToken, user: userData, organization: orgData } = res.data;
+    setToken(newToken);
+    localStorage.setItem('ecoledger_token', newToken);
+    setUser(userData);
+    setOrganization(orgData);
+    return res.data;
   };
 
   const logout = () => {

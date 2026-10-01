@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 import Login from './pages/Login';
@@ -15,8 +16,9 @@ function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FAFAFC] flex items-center justify-center text-slate-600 text-xs font-bold font-sans">
-        Loading EcoLedger Workspace...
+      <div className="min-h-screen bg-light-mesh flex flex-col items-center justify-center space-y-3 text-slate-700 text-xs font-bold font-sans">
+        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+        <p>Loading EcoLedger Workspace...</p>
       </div>
     );
   }
