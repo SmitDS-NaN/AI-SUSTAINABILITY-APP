@@ -41,22 +41,24 @@ app.use('/api/goals', goalsRoutes);
 // Global Error Handler
 app.use(errorHandler);
 
-const PORT = env.PORT || 5000;
-const server = app.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`🚀 EcoLedger Server running on http://localhost:${PORT}`);
-  console.log(`🌱 Environment: ${env.NODE_ENV}`);
-  console.log(`====================================================`);
-});
+if (!process.env.VERCEL) {
+  const PORT = env.PORT || 5000;
+  const server = app.listen(PORT, () => {
+    console.log(`====================================================`);
+    console.log(`🚀 EcoLedger Server running on http://localhost:${PORT}`);
+    console.log(`🌱 Environment: ${env.NODE_ENV}`);
+    console.log(`====================================================`);
+  });
 
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use by another process.`);
-    console.error(`💡 Solution: Stop any existing node instance using port ${PORT} or change PORT in server/.env`);
-    process.exit(1);
-  } else {
-    console.error('❌ Server startup error:', err);
-  }
-});
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use by another process.`);
+      console.error(`💡 Solution: Stop any existing node instance using port ${PORT} or change PORT in server/.env`);
+      process.exit(1);
+    } else {
+      console.error('❌ Server startup error:', err);
+    }
+  });
+}
 
 export default app;
